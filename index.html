@@ -3,27 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music</title>
+    <title>Party Planning</title>
     <link rel="stylesheet" href="index.css" />
     <script defer src="index.js"></script>
   </head>
   <body>
-    <h1>Artists</h1>
-    <form id="addArtist">
-      <label>
-        Name
-        <input type="text" name="name" />
-      </label>
-      <label>
-        Description
-        <input type="text" name="description" />
-      </label>
-      <label>
-        Image URL
-        <input type="text" name="imageUrl" />
-      </label>
-      <button>Add Artist</button>
+    <h1>Parties</h1>
+    <form id="addParty">
+      <label for="partyName"> Party Name: </label><br />
+      <input type="text" id="partyName" name="name" style="width: 40vw" />
+      <br />
+
+      <label for="partyDescription"> Description </label><br />
+      <input
+        type="text"
+        id="partyDescription"
+        name="description"
+        style="width: 40vw"
+      />
+      <br />
+
+      <label for="partyDate">Date</label><br />
+      <input date="" id="partyDate" name="date" style="width: 40vw" /> <br />
+
+      <label for="partyLocation">Location</label><br />
+      <input
+        type="text"
+        id="partyLocation"
+        name="location"
+        style="width: 40vw"
+      />
+      <br />
+
+      <br />
+      <button>Add Party</button>
+      <br />
     </form>
-    <ul id="artists"></ul>
+
+    <ul id="partyList"></ul>
   </body>
 </html>
