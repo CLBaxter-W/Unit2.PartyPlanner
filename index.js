@@ -51,8 +51,9 @@ function renderParties() {
       <h2>${party.name}</h2>
       <span>${party.description} <span/><br>
       <span>${party.date}</span><br>
-      <span>${party.date}</span><br>
+      <span>${party.time}</span><br>
       <span>${party.location}</span><br>
+      <button>Delete Party - Choose Wisely</button><br>
     `;
     return li;
   });
