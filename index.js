@@ -1,5 +1,6 @@
 const COHORT = "2405-FTB-ET-WEB-FT";
 const API_URL = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/${COHORT}/events`;
+const CONST_API_ID = 2405;
 
 const state = {
   parties: [],
@@ -42,11 +43,14 @@ function renderParties() {
     partyList.innerHTML = "<li>No Parties</li>";
     return;
   }
+
+  // TO DO Build this out so that date and time are properly displayed
   const partyCards = state.parties.map((party) => {
     const li = document.createElement("li");
     li.innerHTML = `
       <h2>${party.name}</h2>
       <span>${party.description} <span/><br>
+      <span>${party.date}</span><br>
       <span>${party.date}</span><br>
       <span>${party.location}</span><br>
     `;
@@ -63,6 +67,7 @@ function renderParties() {
 async function addParty(event) {
   event.preventDefault();
 
+  // TO DO Build this out so that date and time are properly displayed
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -70,13 +75,17 @@ async function addParty(event) {
       body: JSON.stringify({
         name: addPartyForm.name.value,
         description: addPartyForm.description.value,
-        date: addPartyForm.date.value,
+        date: new Date(addPartyForm.date.value),
         location: addPartyForm.location.value,
+        cohortId: CONST_API_ID,
       }),
     });
 
+    const responseData = await response.json();
+    console.log("Response data:".responseData);
+
     if (!response.ok) {
-      throw new Error("Failed to create party");
+      responseData.error ? responseData.error.message : "Failed to add party";
     }
 
     render();
@@ -84,3 +93,5 @@ async function addParty(event) {
     console.error(error);
   }
 }
+
+// TO DO Add Delete functionality
