@@ -18,6 +18,7 @@ async function render() {
   await getParties();
   renderParties();
 }
+
 render();
 
 /**
@@ -38,7 +39,6 @@ async function getParties() {
  * Render artists from state
  */
 function renderParties() {
-  // TODO
   if (!state.parties.length) {
     partyList.innerHTML = "<li>No Parties</li>";
     return;
@@ -51,9 +51,8 @@ function renderParties() {
       <h2>${party.name}</h2>
       <span>${party.description} <span/><br>
       <span>${party.date}</span><br>
-      <span>${party.time}</span><br>
       <span>${party.location}</span><br>
-      <button>Delete Party - Choose Wisely</button><br>
+      <button onclick=deleteParty(${party.id})>Delete Party - Choose Wisely</button><br>
     `;
     return li;
   });
@@ -62,7 +61,7 @@ function renderParties() {
 }
 
 /**
- * Ask the API to create a new artist based on form data
+ * Ask the API to create a new party based on form data
  * @param {Event} event
  */
 async function addParty(event) {
@@ -83,7 +82,6 @@ async function addParty(event) {
     });
 
     const responseData = await response.json();
-    console.log("Response data:".responseData);
 
     if (!response.ok) {
       responseData.error ? responseData.error.message : "Failed to add party";
@@ -95,4 +93,19 @@ async function addParty(event) {
   }
 }
 
-// TO DO Add Delete functionality
+//  Add Delete functionality
+async function deleteParty(id) {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete party");
+    }
+
+    render();
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
